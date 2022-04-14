@@ -22,16 +22,19 @@ if __name__ == "__main__":
 
     full_user_list = get_user_list()
     short_user_list = []
+    books_list = []
 
     for user in full_user_list:
         short_user_list.append({"name": user["name"], "gender": user["gender"], "address": user["address"],
                                 "age": user["age"], "books": []})
 
-    print(short_user_list)
+    for book_margins in get_book_list():
+        books_list.append({"Title": book_margins["Title"], "Author": book_margins["Author"],
+                           "Genre": book_margins["Genre"], "Pages": book_margins["Pages"]})
 
     user_num = 0
 
-    for book in get_book_list():
+    for book in books_list:
 
         short_user_list[user_num]["books"].append(book)
 
@@ -40,5 +43,5 @@ if __name__ == "__main__":
         if user_num > len(full_user_list) - 1:
             user_num = 0
 
-    with open("./files/user_list.json", "w") as user_json:
+    with open("./files/result.json", "w") as user_json:
         json.dump(short_user_list, user_json, indent=4)
